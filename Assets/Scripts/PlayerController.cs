@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour
     {
         pos = transform.position; // Take the current position
     }
+
     void FixedUpdate()
     {
         //check for colliders in the way
