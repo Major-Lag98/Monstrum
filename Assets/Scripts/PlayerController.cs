@@ -21,6 +21,10 @@ public class PlayerController : MonoBehaviour
         pos = transform.position; // Take the current position
     }
 
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawWireSphere(transform.position, 1);
+    }
 
     private void Update()
     {
@@ -34,33 +38,52 @@ public class PlayerController : MonoBehaviour
 
 
         //get controlls
-        if (Input.GetKey(KeyCode.A) && (Vector2)transform.position == pos && hitleft.collider == null)
+        //if im tring to move and im not alrady moving, make my direction that way. If im able to move, move
+        if (Input.GetKey(KeyCode.A) && (Vector2)transform.position == pos)// && hitleft.collider == null)
         {
-            pos += Vector2.left;
             lookDirection = Vector2.left;
-            tryingToMove = true;
-            
+            if (hitleft.collider == null)
+            {
+                pos += Vector2.left;
+                tryingToMove = true;
+            }
         }
-        else if (Input.GetKey(KeyCode.D) && (Vector2)transform.position == pos && hitright.collider == null)
+        else if (Input.GetKey(KeyCode.D) && (Vector2)transform.position == pos)// && hitright.collider == null)
         {
-            pos += Vector2.right;
+            /*pos += Vector2.right;
             lookDirection = Vector2.right;
-            tryingToMove = true;
+            tryingToMove = true;*/
+            lookDirection = Vector2.right;
+            if (hitright.collider == null)
+            {
+                pos += Vector2.right;
+                tryingToMove = true;
+            }
 
         }
-        else if (Input.GetKey(KeyCode.W) && (Vector2)transform.position == pos && hitup.collider == null)
+        else if (Input.GetKey(KeyCode.W) && (Vector2)transform.position == pos)// && hitup.collider == null)
         {
-            pos += Vector2.up;
+            /*pos += Vector2.up;
             lookDirection = Vector2.up;
-            tryingToMove = true;
-
+            tryingToMove = true;*/
+            lookDirection = Vector2.up;
+            if (hitup.collider == null)
+            {
+                pos += Vector2.up;
+                tryingToMove = true;
+            }
         }
-        else if (Input.GetKey(KeyCode.S) && (Vector2)transform.position == pos && hitdown.collider == null)
+        else if (Input.GetKey(KeyCode.S) && (Vector2)transform.position == pos)// && hitdown.collider == null)
         {
-            pos += Vector2.down;
+            /*pos += Vector2.down;
             lookDirection = Vector2.down;
-            tryingToMove = true;
-
+            tryingToMove = true;*/
+            lookDirection = Vector2.down;
+            if (hitdown.collider == null)
+            {
+                pos += Vector2.down;
+                tryingToMove = true;
+            }
         }
 
         if (Input.GetKey(KeyCode.LeftShift))//player sprinting?
