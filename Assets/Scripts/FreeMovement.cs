@@ -19,6 +19,8 @@ public class FreeMovement : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+
+        //DontDestroyOnLoad(transform.gameObject);
     }
 
     // Update is called once per frame
@@ -54,8 +56,6 @@ public class FreeMovement : MonoBehaviour
             walking = true;
         }
 
-        move.Normalize();
-
         lookDirection.Normalize();
         animator.SetFloat("Look X", lookDirection.x);
         animator.SetFloat("Look Y", lookDirection.y);
@@ -64,7 +64,7 @@ public class FreeMovement : MonoBehaviour
        
     }
 
-    private void FixedUpdate()
+    private void FixedUpdate()//apply movement
     {
         Vector2 position = rb.position;
 
