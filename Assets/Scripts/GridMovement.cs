@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class GridMovement : MonoBehaviour
 {
 
     Vector2 pos;
@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviour
     Animator animator;
     Vector2 lookDirection = Vector2.down;
 
+    Vector2 origin;
     void Start()
     {
         animator = GetComponent<Animator>();
@@ -23,11 +24,13 @@ public class PlayerController : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        Gizmos.DrawWireSphere(transform.position, 1);
+        Gizmos.DrawWireSphere(origin, 1);
     }
 
     private void Update()
     {
+         origin = (Vector2)transform.position + new Vector2(0, 0.5f);
+
         bool isMoving = false;
         bool tryingToMove = false;
         //check for colliders in the way
