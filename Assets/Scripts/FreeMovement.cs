@@ -6,7 +6,7 @@ public class FreeMovement : MonoBehaviour
 {
 
     Vector2 move;
-    Vector2 lookDirection = Vector2.down;
+    public Vector2 lookDirection;
 
     public float speed = 1;
 
@@ -14,13 +14,26 @@ public class FreeMovement : MonoBehaviour
 
     Rigidbody2D rb;
 
+    static bool exists;
+
+    public string startPoint;
+
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
 
-        //DontDestroyOnLoad(transform.gameObject);
+        if (!exists)
+        {
+            exists = true;
+            DontDestroyOnLoad(transform.gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+        
     }
 
     // Update is called once per frame

@@ -10,13 +10,18 @@ public class LoadArea : MonoBehaviour
     public GameObject obj;
     Animator levelLoader;
 
+    public string exitName;
+
+    FreeMovement player;
+
     private void Start()
     {
+        player = FindObjectOfType<FreeMovement>();
         levelLoader = obj.GetComponent<Animator>();
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("Load new area!");
+        player.startPoint = exitName;
         levelLoader.SetTrigger("FadeOut");
         //Time.timeScale = 0;
         StartCoroutine("WaitForAnimation");
