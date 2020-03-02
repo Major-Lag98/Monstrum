@@ -230,6 +230,11 @@ PrefabInstance:
       propertyPath: startPoint
       value: Origin
       objectReference: {fileID: 0}
+    - target: {fileID: 7754826025749255963, guid: a07efce6f9b40e14398a89916d4b153a,
+        type: 3}
+      propertyPath: speedMultiplier
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a07efce6f9b40e14398a89916d4b153a, type: 3}
 --- !u!1 &1310948916 stripped
