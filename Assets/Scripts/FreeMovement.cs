@@ -6,10 +6,11 @@ public class FreeMovement : MonoBehaviour
 {
 
     Vector2 move;
-    public Vector2 lookDirection;
 
+    public Vector2 lookDirection;
     public float speed = 1;
     public float speedMultiplier = 2;
+    public string startPoint; //when saving game, make new startpoint at player loc and name it accordingly.
 
     Animator animator;
 
@@ -17,8 +18,17 @@ public class FreeMovement : MonoBehaviour
 
     static bool exists;
 
-    public string startPoint;
+    public bool debugLeft;
+    public bool debugRight;
+    public bool debugUp;
+    public bool debugDown;
+
+
+
     bool sprinting = false;
+
+    FollowTheLeader[] followers;
+    
 
     // Start is called before the first frame update
     void Start()
@@ -35,6 +45,9 @@ public class FreeMovement : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        followers = FindObjectsOfType<FollowTheLeader>();
+        
         
     }
 
@@ -42,36 +55,37 @@ public class FreeMovement : MonoBehaviour
     void Update()
     {
         bool walking = false;
-        
         move = Vector2.zero;
 
-        if (Input.GetKey(KeyCode.A))
+
+        if ((Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D)) || debugLeft)
         {
             move += Vector2.left;
             lookDirection += Vector2.left;
             walking = true;
 
         }
-        if (Input.GetKey(KeyCode.D))
+        if ((Input.GetKey(KeyCode.D) && !Input.GetKey(KeyCode.A)) || debugRight)
         {
             move += Vector2.right;
             lookDirection += Vector2.right;
             walking = true;
 
         }
-        if (Input.GetKey(KeyCode.W))
+        if ((Input.GetKey(KeyCode.W) && !Input.GetKey(KeyCode.S)) || debugDown)
         {
             move += Vector2.up;
             lookDirection += Vector2.up;
             walking = true;
         }
-        if (Input.GetKey(KeyCode.S))
+        if ((Input.GetKey(KeyCode.S) && !Input.GetKey(KeyCode.W)) || debugUp)
         {
             move += Vector2.down;
             lookDirection += Vector2.down;
             walking = true;
         }
 
+        
         if (Input.GetKey(KeyCode.LeftShift) && walking)
         {
             sprinting = true;
@@ -79,6 +93,14 @@ public class FreeMovement : MonoBehaviour
         else
         {
             sprinting = false;
+        }
+
+        if (walking && followers.Length > 0)
+        {
+            foreach (FollowTheLeader followers in followers)
+            {
+                followers.isMoving = true;
+            }
         }
 
         lookDirection.Normalize();
@@ -101,8 +123,6 @@ public class FreeMovement : MonoBehaviour
         {
             position += move * speed * Time.fixedDeltaTime;
         }
-        
-
         rb.MovePosition(position);
     }
 }
