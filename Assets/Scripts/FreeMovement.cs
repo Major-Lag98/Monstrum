@@ -100,6 +100,7 @@ public class FreeMovement : MonoBehaviour
             foreach (FollowTheLeader followers in followers)
             {
                 followers.isMoving = true;
+                
             }
         }
 
